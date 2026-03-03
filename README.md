@@ -130,7 +130,7 @@ All discovered bugs, improvements, and architectural observations are documented
 
 ## Future Framework Improvements
 
-### 1. Customizations for Allure Reporting (Environment properties, steps annotations, etc)
-### 2. Logging on the test steps level
-### 3. CI/CD Integration
-### 4. Framework Enhancements (API Mocking, Multi-Environment Support, Profile-based configuration (dev, staging, prod), Test Tagging
+1. Customizations for Allure Reporting (Environment properties, steps annotations, etc)
+2. Logging on the test steps level
+3. CI/CD Integration
+4. Framework Enhancements (API Mocking, Multi-Environment Support, Profile-based configuration (dev, staging, prod), Test Tagging

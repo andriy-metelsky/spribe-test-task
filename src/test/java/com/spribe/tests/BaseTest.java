@@ -35,8 +35,6 @@ public class BaseTest {
 
     @BeforeSuite(alwaysRun = true)
     public void setupEditors() {
-        RestAssured.defaultParser = Parser.JSON;
-
         if (!EDITORS_CREATED.compareAndSet(false, true)) {
             return;
         }

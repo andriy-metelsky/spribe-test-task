@@ -643,7 +643,7 @@ This may force clients to perform additional lookups (`/player/get`) to resolve 
 ### Recommendation
 Consider including `login` in `PlayerItem` or provide filtering/search capabilities to avoid N+1 requests.
 
-## IMPROVEMENT-006: Provide structured error response bodies for 4xx client errors
+## IMPROVEMENT-002: Provide structured error response bodies for 4xx client errors
 ### Impact: **Medium**
 ### Component: PlayerController – `/player/create/{editor}`
 ### Environment: http://3.68.165.45
