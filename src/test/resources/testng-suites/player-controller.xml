@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Player Controller Test Suite">
+    <listeners>
+        <listener class-name="com.spribe.listeners.TestListener"/>
+        <listener class-name="com.spribe.listeners.ThreadConfigListener"/>
+    </listeners>
+
+    <test name="Player Tests">
+        <classes>
+            <class name="com.spribe.tests.PlayerCreateTest"/>
+            <class name="com.spribe.tests.PlayerDeleteTest"/>
+            <class name="com.spribe.tests.PlayerGetTest"/>
+            <class name="com.spribe.tests.PlayerGetAllTest"/>
+            <class name="com.spribe.tests.PlayerUpdateTest"/>
+        </classes>
+    </test>
+</suite>

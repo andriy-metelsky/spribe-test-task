@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Centrally manage versions for easier upgrades
+def restAssuredVersion = '5.4.0'
+def testngVersion = '7.9.0'
+def jacksonVersion = '2.17.0'
+def allureVersion = '2.25.0'
+def log4jVersion = '2.22.1'
+
+dependencies {
+    // Rest Assured
+    implementation "io.rest-assured:rest-assured:$restAssuredVersion"
+    implementation "io.rest-assured:json-path:$restAssuredVersion"
+    implementation "io.rest-assured:json-schema-validator:$restAssuredVersion"
+
+    // TestNG
+    implementation "org.testng:testng:$testngVersion"
+
+    // Jackson
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+
+    // Log4j2
+    implementation "org.apache.logging.log4j:log4j-api:$log4jVersion"
+    implementation "org.apache.logging.log4j:log4j-core:$log4jVersion"
+    implementation "org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion"
+
+    // Allure
+    implementation "io.qameta.allure:allure-testng:$allureVersion"
+    implementation "io.qameta.allure:allure-rest-assured:$allureVersion"
+}
+
+test {
+    useTestNG {
+        useDefaultListeners = true
+        suites 'src/test/resources/testng-suites/player-controller.xml'
+    }
+
+    systemProperty 'allure.results.directory', 'build/allure-results'
+
+    // Turn off Gradle's HTML report to avoid conflicts
+    reports {
+        html.required = false
+    }
+
+    maxParallelForks = 1  // TestNG handles parallelism internally
+}
+
+// Ensure UTF-8 encoding for consistent cross-platform runs
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
