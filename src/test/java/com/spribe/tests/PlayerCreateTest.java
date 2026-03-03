@@ -5,7 +5,10 @@ import com.spribe.enums.Role;
 import com.spribe.models.PlayerCreateResponseDto;
 import com.spribe.testdata.PlayerDataProviders;
 import com.spribe.testdata.TestDataGenerator;
-import io.qameta.allure.*;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -126,6 +129,39 @@ public class PlayerCreateTest extends BaseTest {
     }
 
     // ========== NEGATIVE TESTS ==========
+
+    @Test(description = "Attempt to create player without password")
+    @Issue("BUG-011")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testCreatePlayerWithoutPassword() {
+        String login = TestDataGenerator.generateUniqueLogin();
+        String screenName = TestDataGenerator.generateUniqueScreenName();
+        String age = TestDataGenerator.generateValidAge();
+        String gender = TestDataGenerator.generateValidGender();
+        String password = null;
+
+        Response response = playerClient.createPlayer(SUPERVISOR_EDITOR, age, gender, login, password,
+                                                      Role.USER.value(), screenName);
+
+        Assert.assertEquals(response.getStatusCode(), 400,
+                            "Unexpected status code for player creation without password");
+    }
+
+    @Test(description = "Attempt to create player without login")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testCreatePlayerWithoutLogin() {
+        String login = null;
+        String screenName = TestDataGenerator.generateUniqueScreenName();
+        String age = TestDataGenerator.generateValidAge();
+        String gender = TestDataGenerator.generateValidGender();
+        String password = TestDataGenerator.generateValidPassword();
+
+        Response response = playerClient.createPlayer(SUPERVISOR_EDITOR, age, gender, login, password,
+                                                      Role.USER.value(), screenName);
+
+        Assert.assertEquals(response.getStatusCode(), 400,
+                            "Unexpected status code for player creation with login");
+    }
 
     @Test(dataProvider = "invalidPasswords", dataProviderClass = PlayerDataProviders.class,
             description = "Attempt to create player with invalid password formats")
